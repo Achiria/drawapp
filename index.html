@@ -12,25 +12,32 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <ul class="nav nav-pills">
       <li class="nav-item">
-        <a class="nav-link" href="#">Select</a>
+        <a id="select-select-button" class="function-button nav-link" href="#"
+          onclick="changeFunction('select')">Select</a>
+      </li>
+      <li class="nav-item">
+        <a id="pencil-select-button" class="function-button nav-link" href="#"
+          onclick="changeFunction('pencil')">Pencil</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
           aria-expanded="false">Shape</a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Line</a>
-          <a class="dropdown-item active" href="#">Circle</a>
-          <a class="dropdown-item" href="#">Rectangle</a>
+          <a id="line-select-button" class="function-button dropdown-item" href="#"
+            onclick="changeFunction('line')">Line</a>
+          <a id="circle-select-button" class="function-button dropdown-item active" href="#"
+            onclick="changeFunction('circle')">Circle</a>
+          <a id="rectangle-select-button" class="function-button dropdown-item" href="#"
+            onclick="changeFunction('rectangle')">Rectangle</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        <a class="nav-link" href="#">Save</a>
       </li>
     </ul>
   </nav>
+
+
   <canvas id="myCanvas" resize></canvas>
 </body>
 
@@ -39,7 +46,7 @@
 <script type="text/javascript" src="static/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="static/js/paper-full.min.js"></script>
 
-
-<script type="text/paperscript" src="js/index.js" canvas="myCanvas"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/paperscript" src="js/paper.js" canvas="myCanvas"></script>
 
 </html>
