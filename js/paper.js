@@ -1,3 +1,13 @@
+var values = {};
+
+var hitOptions = {
+	segments: true,
+	stroke: true,
+	fill: true,
+	tolerance: 5
+}
+
+
 globals.newProject = function () {
 	project.clear();
 }
@@ -10,10 +20,32 @@ globals.saveProject = function () {
 	});
 }
 
+var segment, path;
+
 function onMouseDown(event) {
+	project.deselectAll();
+	segment = path = null;
+	var hitResult = project.hitTest(event.point, hitOptions);
+
+	if (hitResult) {
+		path = hitResult.item;
+		switch (hitResult.type) {
+			case 'segment':
+				segment = hitResult.segment;
+				break;
+			case 'stroke':
+				if (globals.function == "select") {
+					var location = hitResult.location;
+					segment = path.insert(location.index + 1, event.point);
+				}
+				break;
+			default:
+				break;
+		}
+	}
+
 	switch (globals.function) {
 		case "select":
-			project.deselectAll();
 			if (event.item != null)
 				event.item.set({ selected: true });
 			break;
@@ -22,7 +54,6 @@ function onMouseDown(event) {
 			myPath.strokeColor = 'black';
 			break;
 		case "circle":
-			var circle = new Path.Circle({})
 			break;
 		default:
 			break;
@@ -31,6 +62,14 @@ function onMouseDown(event) {
 
 function onMouseDrag(event) {
 	switch (globals.function) {
+		case "select":
+			if (segment) {
+				segment.point += event.delta;
+			}
+			else if (path) {
+				path.position += event.delta;
+			}
+			break;
 		case "pencil":
 			myPath.add(event.point);
 			break;
