@@ -1,8 +1,16 @@
 function onMouseDown(event) {
 	switch (globals.function) {
+		case "select":
+			project.deselectAll();
+			if (event.item != null)
+				event.item.set({ selected: true });
+			break;
 		case "pencil":
 			myPath = new Path();
 			myPath.strokeColor = 'black';
+			break;
+		case "circle":
+			var circle = new Path.Circle({})
 			break;
 		default:
 			break;
@@ -34,6 +42,19 @@ function onMouseUp(event) {
 			});
 			circle.strokeColor = 'black';
 			circle.fillColor = 'white';
+			break;
+		case "ellipse":
+			var rectangle = new Rectangle({
+				x: event.point.x - event.delta.x,
+				y: event.point.y - event.delta.y,
+				height: event.delta.y,
+				width: event.delta.x
+			});
+			var ellipse = new Path.Ellipse(
+				rectangle
+			);
+			ellipse.strokeColor = 'black';
+			ellipse.fillColor = 'white';
 			break;
 		case "rectangle":
 			var rectangle = new Path.Rectangle({
