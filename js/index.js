@@ -2,8 +2,8 @@ $(function () {
 	$('[data-toggle="tooltip"]').tooltip()
 })
 
+window.globals = { function: "circle" };
 window.onload = function () {
-	window.globals = { function: "circle" };
 }
 
 function changeFunction(newFunction) {
@@ -38,4 +38,8 @@ function changeFunction(newFunction) {
 		default:
 			break;
 	}
+}
+
+function saveCanvas() {
+	window.globals.saveProject();
 }

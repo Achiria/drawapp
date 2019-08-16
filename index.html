@@ -19,6 +19,10 @@
         <a id="pencil-select-button" class="function-button nav-link" href="#"
           onclick="changeFunction('pencil')">Pencil</a>
       </li>
+      <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Coming soon">
+        <a id="pen-select-button" class="function-button nav-link disabled" href="#"
+          onclick="changeFunction('pen')">Pen</a>
+      </span>
       <li class="nav-item dropdown">
         <a id="shape-select-button" class="nav-link dropdown-toggle function-button active" data-toggle="dropdown"
           href="#" role="button" aria-haspopup="true" aria-expanded="false">Shape</a>
@@ -42,13 +46,11 @@
     </ul>
     <ul class="nav justify-content-end">
       <li class="nav-item">
-        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Coming soon">
-          <a id="save-button" class="nav-link disabled" href="#">Save</a>
-        </span>
+        <a id="save-button" class="nav-link" href="#" onclick="saveCanvas()">Save</a>
       </li>
       <li class="nav-item">
         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Coming soon">
-          <a id="save-button" class="nav-link disabled" href="#">New</a>
+          <a id="save-button" class="nav-link disabled" href="#" onclick="newCanvas()">New</a>
         </span>
       </li>
     </ul>
