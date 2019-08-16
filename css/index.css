@@ -1,10 +1,34 @@
-html,
-body {
+html, body {
     height: 100%;
 }
 
-/* Scale canvas with resize attribute to full size */
 canvas[resize] {
     width: 100%;
     height: 100%;
+}
+
+#toolbar {
+    position: absolute;
+    top: 70px;
+    left: calc(100vw - 150px);
+    z-index: 9;
+    background-color: #f1f1f1;
+    text-align: center;
+}
+
+#toolbarheader {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #007bff;
+    color: #fff;
+}
+
+.color-selector {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    /* border: 2px; */
+    /* border-color: #f1f1f1; */
+    /* border-style: solid; */
 }

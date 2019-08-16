@@ -51,7 +51,8 @@ function onMouseDown(event) {
 			break;
 		case "pencil":
 			myPath = new Path();
-			myPath.strokeColor = 'black';
+			myPath.strokeColor = globals.strokeColor;
+			myPath.strokeWidth = globals.strokeWidth;
 			break;
 		case "circle":
 			break;
@@ -73,6 +74,8 @@ function onMouseDrag(event) {
 		case "pencil":
 			myPath.add(event.point);
 			break;
+		case "circle":
+			break;
 		default:
 			break;
 	}
@@ -82,7 +85,7 @@ function onMouseUp(event) {
 	switch (globals.function) {
 		case "line":
 			var myPath = new Path();
-			myPath.strokeColor = 'black';
+			myPath.strokeColor = globals.strokeColor;
 			myPath.add(event.downPoint);
 			myPath.add(event.point);
 			break;
@@ -91,8 +94,9 @@ function onMouseUp(event) {
 				center: event.middlePoint,
 				radius: event.delta.length / 2
 			});
-			circle.strokeColor = 'black';
-			circle.fillColor = 'white';
+			circle.strokeColor = globals.strokeColor;
+			circle.fillColor = globals.fillColor;
+			circle.strokeWidth = globals.strokeWidth;
 			break;
 		case "ellipse":
 			var rectangle = new Rectangle({
@@ -104,8 +108,9 @@ function onMouseUp(event) {
 			var ellipse = new Path.Ellipse(
 				rectangle
 			);
-			ellipse.strokeColor = 'black';
-			ellipse.fillColor = 'white';
+			ellipse.strokeColor = globals.strokeColor;
+			ellipse.fillColor = globals.fillColor;
+			ellipse.strokeWidth = globals.strokeWidth;
 			break;
 		case "rectangle":
 			var rectangle = new Path.Rectangle({
@@ -114,8 +119,9 @@ function onMouseUp(event) {
 				height: event.delta.y,
 				width: event.delta.x
 			});
-			rectangle.strokeColor = 'black';
-			rectangle.fillColor = 'white';
+			rectangle.strokeColor = globals.strokeColor;
+			rectangle.fillColor = globals.fillColor;
+			rectangle.strokeWidth = globals.strokeWidth;
 			break;
 		default:
 			break;

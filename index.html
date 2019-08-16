@@ -8,13 +8,35 @@
   <link rel="stylesheet" href="static/css/bootstrap.min.css" />
 
   <link rel="stylesheet" href="css/index.css" />
-
 </head>
 
 <body>
+  <div id="popupRC" style="display:none;" class="panel panel-primary  ">
+    <div class="panel-heading ">Options</div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="control-label col-md-2">Stroke Color</label>
+        <input type="color" class="form-control" id="idcolorr" />
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-2">Fill Color</label>
+        <input type="color" class="form-control" id="idcolorr" value="#fff" />
+      </div>
+    </div>
+    <div class="panel-footer">
+      <input type="button" class="btn btn-danger" value="close" onClick="$('#popupRC').css({ display: 'none' });" />
+    </div>
+  </div>
+
+  <div id="toolbar">
+    <div id="toolbarheader">Toobar</div>
+    <input id="stroke-color-selector" type="color" class="color-selector" value="#000000">
+    <input id="fill-color-selector" type="color" class="color-selector" value="#ffffff">
+  </div>
+
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-      <img src="static/draw_favicon.png" width="30" height="30" alt="">
+    <a class="navbar-brand">
+      <img src="static/draw_favicon.png" width="30" height="30" alt="Draw">
     </a>
     <ul class="nav nav-pills mr-auto">
       <li class="nav-item">
@@ -64,17 +86,28 @@
       </li>
     </ul>
   </nav>
-
-
   <canvas id="myCanvas" resize></canvas>
+
+
+  <script type="text/javascript" src="static/js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="static/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="static/js/paper-full.min.js"></script>
+
+  <script type="text/paperscript" src="js/paper.js" canvas="myCanvas"></script>
+  <script type="text/javascript" src="js/index.js" defer></script>
+
+  <script>
+    // $(document).ready(function () {
+    //   $("#myCanvas").bind('contextmenu', function (e) {
+    //     e.preventDefault();
+    //     $("#popupRC").css({
+    //       position: "absolute", top: e.pageY,
+    //       left: e.pageX, display: "block"
+    //     });
+    //   });
+    // });
+  </script>
 </body>
 
-
-<script type="text/javascript" src="static/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="static/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="static/js/paper-full.min.js"></script>
-
-<script type="text/paperscript" src="js/paper.js" canvas="myCanvas"></script>
-<script type="text/javascript" src="js/index.js"></script>
 
 </html>
