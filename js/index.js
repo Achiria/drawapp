@@ -13,13 +13,19 @@ window.globals = {
 window.onload = function () {
 	var strokeColorSelector = document.querySelector("#stroke-color-selector");
 	var fillColorSelector = document.querySelector("#fill-color-selector");
+	var strokeWidthSelector = document.querySelector("#stroke-width-selector");
 	strokeColorSelector.addEventListener("change", colorSelected, false);
 	fillColorSelector.addEventListener("change", colorSelected, false);
+	strokeWidthSelector.addEventListener("change", widthSelected, false);
 }
 
 function colorSelected(event) {
 	window.globals['strokeColor'] = document.querySelector("#stroke-color-selector").value;
 	window.globals['fillColor'] = document.querySelector("#fill-color-selector").value;
+}
+
+function widthSelected(event) {
+	window.globals['strokeWidth'] = document.querySelector("#stroke-width-selector").value;
 }
 
 function changeFunction(newFunction) {

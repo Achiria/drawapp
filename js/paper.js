@@ -86,6 +86,7 @@ function onMouseUp(event) {
 		case "line":
 			var myPath = new Path();
 			myPath.strokeColor = globals.strokeColor;
+			myPath.strokeWidth = globals.strokeWidth;
 			myPath.add(event.downPoint);
 			myPath.add(event.point);
 			break;
