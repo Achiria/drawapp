@@ -43,3 +43,7 @@ function changeFunction(newFunction) {
 function saveCanvas() {
 	window.globals.saveProject();
 }
+
+function newCanvas() {
+	window.globals.newProject();
+}

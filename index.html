@@ -2,6 +2,9 @@
 <html>
 
 <head>
+  <title>Draw</title>
+  <link rel="icon" href="static/draw_favicon.png">
+
   <link rel="stylesheet" href="static/css/bootstrap.min.css" />
 
   <link rel="stylesheet" href="css/index.css" />
@@ -10,6 +13,9 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="static/draw_favicon.png" width="30" height="30" alt="">
+    </a>
     <ul class="nav nav-pills mr-auto">
       <li class="nav-item">
         <a id="select-select-button" class="function-button nav-link" href="#"
@@ -50,8 +56,11 @@
       </li>
       <li class="nav-item">
         <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Coming soon">
-          <a id="save-button" class="nav-link disabled" href="#" onclick="newCanvas()">New</a>
+          <a id="load-button" class="nav-link disabled" href="#" onclick="newCanvas()">Load</a>
         </span>
+      </li>
+      <li class="nav-item">
+        <a id="new-button" class="nav-link" href="#" onclick="newCanvas()">New</a>
       </li>
     </ul>
   </nav>
