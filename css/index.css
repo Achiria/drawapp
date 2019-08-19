@@ -27,8 +27,15 @@ canvas[resize] {
 .color-selector {
     height: 30px;
     width: 30px;
-    cursor: grab;
     /* border: 2px; */
     /* border-color: #f1f1f1; */
     /* border-style: solid; */
+}
+
+.grabby {
+    cursor: grab;   
+}
+
+.grabby:active {
+    cursor: grabbing;
 }

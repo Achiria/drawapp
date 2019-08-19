@@ -31,11 +31,11 @@ function widthSelected(event) {
 function changeFunction(newFunction) {
 	window.globals['function'] = newFunction;
 	$(".function-button").removeClass("active");
-	$("#myCanvas").css("cursor", "default");
+	$("#myCanvas").removeClass("grabby");
 	switch (newFunction) {
 		case "pan":
 			$("#pan-select-button").addClass("active");
-			$("#myCanvas").css("cursor", "grab");
+			$("#myCanvas").addClass("grabby");
 			break;
 		case "select":
 			$("#select-select-button").addClass("active");
