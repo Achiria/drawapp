@@ -4,7 +4,7 @@ var hitOptions = {
 	segments: true,
 	stroke: true,
 	fill: true,
-	tolerance: 5
+	tolerance: 2
 }
 
 
@@ -49,10 +49,12 @@ function onMouseDown(event) {
 			if (event.item != null)
 				event.item.set({ selected: true });
 			break;
-		case "pencil":
+		case "pen":
 			myPath = new Path();
 			myPath.strokeColor = globals.strokeColor;
 			myPath.strokeWidth = globals.strokeWidth;
+			break;
+		case "brush":
 			break;
 		case "circle":
 			break;
@@ -71,7 +73,7 @@ function onMouseDrag(event) {
 				path.position += event.delta;
 			}
 			break;
-		case "pencil":
+		case "pen":
 			myPath.add(event.point);
 			break;
 		case "circle":
@@ -123,6 +125,19 @@ function onMouseUp(event) {
 			rectangle.strokeColor = globals.strokeColor;
 			rectangle.fillColor = globals.fillColor;
 			rectangle.strokeWidth = globals.strokeWidth;
+			break;
+		default:
+			break;
+	}
+}
+
+function onKeyUp(event) {
+	switch (event.key) {
+		case "delete":
+			var selected = project.selectedItems;
+			for (var i = 0; i < selected.length; i++) {
+				selectedItems[i].remove();
+			}
 			break;
 		default:
 			break;
