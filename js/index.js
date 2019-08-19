@@ -76,8 +76,6 @@ function newCanvas() {
 }
 
 
-
-
 dragElement(document.getElementById("toolbar"));
 
 function dragElement(elmnt) {

@@ -144,6 +144,21 @@ function onKeyUp(event) {
 	}
 }
 
+$('#myCanvas').mousewheel(function (event) {
+	console.log(event.deltaX, event.deltaY, event.deltaFactor);
+	// debugger;
+	project.view.zoom = changeZoom(project.view.zoom, event.deltaY);
+});
+
+function changeZoom(oldZoom, delta) {
+	factor = 1.05
+	if (delta < 0)
+		return oldZoom / factor
+	if (delta > 0)
+		return oldZoom * factor
+	return oldZoom
+}
+
 function downloadDataUri(options) {
 	if (!options.url)
 		options.url = "http://download-data-uri.appspot.com/";
