@@ -26,107 +26,145 @@ function onMouseDown(event) {
 	project.deselectAll();
 	segment = path = null;
 	var hitResult = project.hitTest(event.point, hitOptions);
-
-	if (hitResult) {
-		path = hitResult.item;
-		switch (hitResult.type) {
-			case 'segment':
-				segment = hitResult.segment;
-				break;
-			case 'stroke':
-				if (globals.function == "select") {
-					var location = hitResult.location;
-					segment = path.insert(location.index + 1, event.point);
+	switch (event.event.buttons) {
+		//left drag
+		case 1:
+			if (hitResult) {
+				path = hitResult.item;
+				switch (hitResult.type) {
+					case 'segment':
+						segment = hitResult.segment;
+						break;
+					case 'stroke':
+						if (globals.function == "select") {
+							var location = hitResult.location;
+							segment = path.insert(location.index + 1, event.point);
+						}
+						break;
+					default:
+						break;
 				}
-				break;
-			default:
-				break;
-		}
-	}
+			}
 
-	switch (globals.function) {
-		case "select":
-			if (event.item != null)
-				event.item.set({ selected: true });
+			switch (globals.function) {
+				case "select":
+					if (event.item != null)
+						event.item.set({ selected: true });
+					break;
+				case "pen":
+					myPath = new Path();
+					myPath.strokeColor = globals.strokeColor;
+					myPath.strokeWidth = globals.strokeWidth;
+					break;
+				case "brush":
+					break;
+				case "circle":
+					break;
+				default:
+					break;
+			}
 			break;
-		case "pen":
-			myPath = new Path();
-			myPath.strokeColor = globals.strokeColor;
-			myPath.strokeWidth = globals.strokeWidth;
+		//right drag
+		case 2:
 			break;
-		case "brush":
-			break;
-		case "circle":
-			break;
-		default:
+		//middle drag
+		case 4:
 			break;
 	}
 }
 
 function onMouseDrag(event) {
-	switch (globals.function) {
-		case "select":
-			if (segment) {
-				segment.point += event.delta;
+	switch (event.event.buttons) {
+		//left drag
+		case 1:
+			switch (globals.function) {
+				case "pan":
+					moveCenter(event);
+					break;
+				case "select":
+					if (segment) {
+						segment.point += event.delta;
+					}
+					else if (path) {
+						path.position += event.delta;
+					}
+					break;
+				case "pen":
+					myPath.add(event.point);
+					break;
+				case "circle":
+					break;
+				default:
+					break;
 			}
-			else if (path) {
-				path.position += event.delta;
-			}
 			break;
-		case "pen":
-			myPath.add(event.point);
+		//right drag
+		case 2:
 			break;
-		case "circle":
-			break;
-		default:
+		//middle drag
+		case 4:
+			moveCenter(event);
+			$("#myCanvas").addClass("grabby");
 			break;
 	}
 }
 
 function onMouseUp(event) {
-	switch (globals.function) {
-		case "line":
-			var myPath = new Path();
-			myPath.strokeColor = globals.strokeColor;
-			myPath.strokeWidth = globals.strokeWidth;
-			myPath.add(event.downPoint);
-			myPath.add(event.point);
+	$("#myCanvas").removeClass("grabby");
+	switch (event.event.button) {
+		//left click
+		case 0:
+			switch (globals.function) {
+				case "line":
+					var myPath = new Path();
+					myPath.strokeColor = globals.strokeColor;
+					myPath.strokeWidth = globals.strokeWidth;
+					myPath.add(event.downPoint);
+					myPath.add(event.point);
+					break;
+				case "circle":
+					var circle = new Path.Circle({
+						center: event.middlePoint,
+						radius: event.delta.length / 2
+					});
+					circle.strokeColor = globals.strokeColor;
+					circle.fillColor = globals.fillColor;
+					circle.strokeWidth = globals.strokeWidth;
+					break;
+				case "ellipse":
+					var rectangle = new Rectangle({
+						x: event.point.x - event.delta.x,
+						y: event.point.y - event.delta.y,
+						height: event.delta.y,
+						width: event.delta.x
+					});
+					var ellipse = new Path.Ellipse(
+						rectangle
+					);
+					ellipse.strokeColor = globals.strokeColor;
+					ellipse.fillColor = globals.fillColor;
+					ellipse.strokeWidth = globals.strokeWidth;
+					break;
+				case "rectangle":
+					var rectangle = new Path.Rectangle({
+						x: event.point.x - event.delta.x,
+						y: event.point.y - event.delta.y,
+						height: event.delta.y,
+						width: event.delta.x
+					});
+					rectangle.strokeColor = globals.strokeColor;
+					rectangle.fillColor = globals.fillColor;
+					rectangle.strokeWidth = globals.strokeWidth;
+					break;
+				default:
+					break;
+			}
 			break;
-		case "circle":
-			var circle = new Path.Circle({
-				center: event.middlePoint,
-				radius: event.delta.length / 2
-			});
-			circle.strokeColor = globals.strokeColor;
-			circle.fillColor = globals.fillColor;
-			circle.strokeWidth = globals.strokeWidth;
+		//right drag
+		case 2:
 			break;
-		case "ellipse":
-			var rectangle = new Rectangle({
-				x: event.point.x - event.delta.x,
-				y: event.point.y - event.delta.y,
-				height: event.delta.y,
-				width: event.delta.x
-			});
-			var ellipse = new Path.Ellipse(
-				rectangle
-			);
-			ellipse.strokeColor = globals.strokeColor;
-			ellipse.fillColor = globals.fillColor;
-			ellipse.strokeWidth = globals.strokeWidth;
-			break;
-		case "rectangle":
-			var rectangle = new Path.Rectangle({
-				x: event.point.x - event.delta.x,
-				y: event.point.y - event.delta.y,
-				height: event.delta.y,
-				width: event.delta.x
-			});
-			rectangle.strokeColor = globals.strokeColor;
-			rectangle.fillColor = globals.fillColor;
-			rectangle.strokeWidth = globals.strokeWidth;
-			break;
-		default:
+		//middle drag
+		case 1:
 			break;
 	}
 }
@@ -157,6 +195,11 @@ function changeZoom(oldZoom, delta) {
 	if (delta > 0)
 		return oldZoom * factor
 	return oldZoom
+}
+
+function moveCenter(event) {
+	// debugger;
+	project.view.center = project.view.center - (event.delta);
 }
 
 function downloadDataUri(options) {
