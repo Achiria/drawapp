@@ -7,18 +7,7 @@ var hitOptions = {
 	tolerance: 2
 }
 
-
-globals.newProject = function () {
-	project.clear();
-}
-
-globals.saveProject = function () {
-	var svg = project.exportSVG({ asString: true });
-	downloadDataUri({
-		data: 'data:image/svg+xml;base64,' + btoa(svg),
-		filename: 'export.svg'
-	});
-}
+globals.project = project;
 
 var segment, path;
 
@@ -197,8 +186,8 @@ function onMouseUp(event) {
 function onKeyUp(event) {
 	switch (event.key) {
 		case "delete":
-			var selected = project.selectedItems;
-			for (var i = 0; i < selected.length; i++) {
+			var selectedItems = project.selectedItems;
+			for (var i = 0; i < selectedItems.length; i++) {
 				selectedItems[i].remove();
 			}
 			break;
@@ -209,7 +198,6 @@ function onKeyUp(event) {
 
 $('#myCanvas').mousewheel(function (event) {
 	console.log(event.deltaX, event.deltaY, event.deltaFactor);
-	// debugger;
 	project.view.zoom = changeZoom(project.view.zoom, event.deltaY);
 });
 
@@ -223,15 +211,5 @@ function changeZoom(oldZoom, delta) {
 }
 
 function moveCenter(event) {
-	// debugger;
 	project.view.translate(event.delta);
-}
-
-function downloadDataUri(options) {
-	if (!options.url)
-		options.url = "http://download-data-uri.appspot.com/";
-	$('<form method="post" action="' + options.url
-		+ '" style="display:none"><input type="hidden" name="filename" value="'
-		+ options.filename + '"/><input type="hidden" name="data" value="'
-		+ options.data + '"/></form>').appendTo('body').submit().remove();
 }

@@ -22,6 +22,14 @@ window.onload = function () {
 function colorSelected(event) {
 	window.globals['strokeColor'] = document.querySelector("#stroke-color-selector").value;
 	window.globals['fillColor'] = document.querySelector("#fill-color-selector").value;
+
+	var selectedItems = window.globals.project.selectedItems;
+	for (var i = 0; i < selectedItems.length; i++) {
+		selectedItems[i].set({
+			strokeColor: globals.strokeColor,
+			fillColor: globals.fillColor
+		});
+	}
 }
 
 function widthSelected(event) {
@@ -71,11 +79,26 @@ function changeFunction(newFunction) {
 }
 
 function saveCanvas() {
-	window.globals.saveProject();
+	var svg = window.globals.project.exportSVG({ asString: true });
+	downloadDataUri({
+		data: 'data:image/svg+xml;base64,' + btoa(svg),
+		filename: 'export.svg'
+	});
 }
 
 function newCanvas() {
-	window.globals.newProject();
+	window.globals.project.clear();
+}
+
+
+
+function downloadDataUri(options) {
+	if (!options.url)
+		options.url = "http://download-data-uri.appspot.com/";
+	$('<form method="post" action="' + options.url
+		+ '" style="display:none"><input type="hidden" name="filename" value="'
+		+ options.filename + '"/><input type="hidden" name="data" value="'
+		+ options.data + '"/></form>').appendTo('body').submit().remove();
 }
 
 
