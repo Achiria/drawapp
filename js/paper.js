@@ -110,7 +110,6 @@ function onMouseDrag(event) {
 }
 
 function onMouseUp(event) {
-	$("#myCanvas").removeClass("grabby");
 	switch (event.event.button) {
 		//left click
 		case 0:
@@ -165,7 +164,9 @@ function onMouseUp(event) {
 			break;
 		//middle drag
 		case 1:
-			break;
+				if (globals.function != "pan")
+					$("#myCanvas").removeClass("grabby");
+				break;
 	}
 }
 
