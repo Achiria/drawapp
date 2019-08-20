@@ -200,7 +200,7 @@ function changeZoom(oldZoom, delta) {
 
 function moveCenter(event) {
 	// debugger;
-	project.view.center = project.view.center - (event.delta);
+	project.view.translate(event.delta);
 }
 
 function downloadDataUri(options) {
