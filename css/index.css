@@ -21,7 +21,7 @@ canvas[resize] {
     cursor: move;
     z-index: 10;
     background-color: #007bff;
-    color: #fff;
+    color: #ffffff;
 }
 
 .color-selector {

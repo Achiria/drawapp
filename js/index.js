@@ -43,6 +43,9 @@ function changeFunction(newFunction) {
 		case "pen":
 			$("#pen-select-button").addClass("active");
 			break;
+		case "brush":
+			$("#brush-select-button").addClass("active");
+			break;
 		case "line":
 			$("#line-select-button").addClass("active");
 			$("#shape-select-button").addClass("active");
