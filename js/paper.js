@@ -52,11 +52,14 @@ function onMouseDown(event) {
 						event.item.set({ selected: true });
 					break;
 				case "pen":
-					myPath = new Path();
-					myPath.strokeColor = globals.strokeColor;
-					myPath.strokeWidth = globals.strokeWidth;
+					penPath = new Path();
+					penPath.strokeColor = globals.strokeColor;
+					penPath.strokeWidth = globals.strokeWidth;
 					break;
 				case "brush":
+					brushPath = new Path();
+					brushPath.fillColor = globals.strokeColor;
+					brushPath.add(event.point);
 					break;
 				case "circle":
 					break;
@@ -90,7 +93,23 @@ function onMouseDrag(event) {
 					}
 					break;
 				case "pen":
-					myPath.add(event.point);
+					penPath.add(event.point);
+					break;
+				case "brush":
+					var step = event.delta;
+					step.angle += 90;
+
+					var top = event.middlePoint + (step * (globals.strokeWidth / 30) + 1);
+					var bottom = event.middlePoint - (step * (globals.strokeWidth / 30) + 1);
+
+					var line = new Path();
+					line.strokeColor = globals.strokeColor;;
+					line.add(top);
+					line.add(bottom);
+
+					brushPath.add(top);
+					brushPath.insert(0, bottom);
+					brushPath.smooth();
 					break;
 				case "circle":
 					break;
@@ -115,11 +134,16 @@ function onMouseUp(event) {
 		case 0:
 			switch (globals.function) {
 				case "line":
-					var myPath = new Path();
-					myPath.strokeColor = globals.strokeColor;
-					myPath.strokeWidth = globals.strokeWidth;
-					myPath.add(event.downPoint);
-					myPath.add(event.point);
+					var linePath = new Path();
+					linePath.strokeColor = globals.strokeColor;
+					linePath.strokeWidth = globals.strokeWidth;
+					linePath.add(event.downPoint);
+					linePath.add(event.point);
+					break;
+				case "brush":
+					brushPath.add(event.point);
+					brushPath.closed = true;
+					brushPath.smooth();
 					break;
 				case "circle":
 					var circle = new Path.Circle({
@@ -164,9 +188,9 @@ function onMouseUp(event) {
 			break;
 		//middle drag
 		case 1:
-				if (globals.function != "pan")
-					$("#myCanvas").removeClass("grabby");
-				break;
+			if (globals.function != "pan")
+				$("#myCanvas").removeClass("grabby");
+			break;
 	}
 }
 
