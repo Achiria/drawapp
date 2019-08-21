@@ -1,2 +1,3 @@
-A work in progress
-Viewable at draw.anthonygamboa.codes
+A work in progress  
+Paper.js does all the work
+
