@@ -1,0 +1,22 @@
+{
+  "name": "drawapp",
+  "version": "0.1.0",
+  "description": "An attempt at a vector graphics editor inside a browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Achiria/drawapp.git"
+  },
+  "author": "anthony gamboa",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Achiria/drawapp/issues"
+  },
+  "homepage": "https://github.com/Achiria/drawapp#readme",
+  "devDependencies": {
+    "paper.js": "~0.12.3"
+  }
+}
