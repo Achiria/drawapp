@@ -66,6 +66,7 @@ function leftClickDown(hitResult, event) {
 		case "pen":
 			penPath = new Path();
 			penPath.strokeCap = 'round';
+			penPath.strokeJoin = 'round';
 			penPath.strokeColor = globals.strokeColor;
 			penPath.strokeWidth = globals.strokeWidth;
 			break;
@@ -146,7 +147,7 @@ function leftDrag(event) {
 
 function onMouseUp(event) {
 	//if it's a mouse event
-	if (!!event.event.buttons) {
+	if (!!event.event.buttons || event.event.buttons === 0) {
 		switch (event.event.button) {
 			//left click
 			case 0:
@@ -180,6 +181,14 @@ function leftClickUp(event) {
 			break;
 		case "pen":
 			penPath.simplify();
+			if (penPath.segments.length <= 1) {
+				var circle = new Path.Circle({
+					center: event.point,
+					radius: globals.strokeWidth / 2
+				});
+				circle.strokeColor = globals.strokeColor;
+				circle.fillColor = globals.strokeColor;
+			}
 			break;
 		case "brush":
 			brushPath.add(event.point);
