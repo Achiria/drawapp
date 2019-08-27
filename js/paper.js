@@ -23,10 +23,10 @@ function onMouseDown(event) {
 			case 1:
 				leftClickDown(hitResult, event);
 				break;
-				//right click
+			//right click
 			case 2:
 				break;
-				//middle click
+			//middle click
 			case 4:
 				break;
 		}
@@ -90,10 +90,10 @@ function onMouseDrag(event) {
 			case 1:
 				leftDrag(event);
 				break;
-				//right drag
+			//right drag
 			case 2:
 				break;
-				//middle drag
+			//middle drag
 			case 4:
 				moveCenter(event);
 				$("#myCanvas").addClass("grabby");
@@ -149,17 +149,25 @@ function onMouseUp(event) {
 	//if it's a mouse event
 	if (!!event.event.buttons || event.event.buttons === 0) {
 		switch (event.event.button) {
-			//left click
+			//left up
 			case 0:
 				leftClickUp(event);
 				break;
-				//right drag
+			//right up
 			case 2:
 				break;
-				//middle drag
+			//middle up
 			case 1:
 				if (globals.function != "pan")
 					$("#myCanvas").removeClass("grabby");
+				break;
+			//back up
+			case 3:
+				window.history.back();
+				break;
+			//forward up
+			case 4:
+				window.history.forward();
 				break;
 		}
 	}
