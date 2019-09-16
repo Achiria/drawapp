@@ -11,28 +11,11 @@
 </head>
 
 <body>
-  <div id="popupRC" style="display:none;" class="panel panel-primary  ">
-    <div class="panel-heading ">Options</div>
-    <div class="panel-body">
-      <div class="form-group">
-        <label class="control-label col-md-2">Stroke Color</label>
-        <input type="color" class="form-control" id="idcolorr" />
-      </div>
-      <div class="form-group">
-        <label class="control-label col-md-2">Fill Color</label>
-        <input type="color" class="form-control" id="idcolorr" value="#ffffff" />
-      </div>
-    </div>
-    <div class="panel-footer">
-      <input type="button" class="btn btn-danger" value="close" onClick="$('#popupRC').css({ display: 'none' });" />
-    </div>
-  </div>
-
   <div id="toolbar">
     <div id="toolbarheader">Toobar</div>
     <input id="stroke-color-selector" type="color" class="color-selector" value="#000000">
     <input id="fill-color-selector" type="color" class="color-selector" value="#ffffff">
-    <input id="stroke-width-selector" type="range" class="form-control-range" style="width: 70px" value="3" max="15">
+    <input id="stroke-width-selector" type="range" class="form-control-range" style="width: 83px" value="3" max="15">
   </div>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,8 +24,7 @@
     </a>
     <ul class="nav nav-pills mr-auto">
       <li class="nav-item">
-        <a id="pan-select-button" class="function-button nav-link" href="#"
-          onclick="changeFunction('pan')">Pan</a>
+        <a id="pan-select-button" class="function-button nav-link" href="#" onclick="changeFunction('pan')">Pan</a>
       </li>
       <li class="nav-item">
         <a id="select-select-button" class="function-button nav-link" href="#"
@@ -51,8 +33,7 @@
       <li class="nav-item">
         <a id="pen-select-button" class="function-button nav-link" href="#" onclick="changeFunction('pen')">Pen</a>
       </li>
-        <a id="brush-select-button" class="function-button nav-link" href="#"
-          onclick="changeFunction('brush')">Brush</a>
+      <a id="brush-select-button" class="function-button nav-link" href="#" onclick="changeFunction('brush')">Brush</a>
       <li class="nav-item dropdown">
         <a id="shape-select-button" class="nav-link dropdown-toggle function-button active" data-toggle="dropdown"
           href="#" role="button" aria-haspopup="true" aria-expanded="false">Shape</a>
@@ -73,15 +54,22 @@
             onclick="changeFunction('text')">Text</a>
         </span>
       </li>
+      <li class="nav-item">
+        <a id="add-select-button" class="function-button nav-link" data-toggle="" data-target="" href="#" onclick="addDoodle()">Add</a>
+      </li>
     </ul>
     <ul class="nav justify-content-end">
+      <li class="nav-item">
+          <a id="undo-button" class="nav-link" href="#" onclick="undoAction()">Undo</a>
+      </li>
+      <li class="nav-item">
+          <a id="redo-button" class="nav-link" href="#" onclick="redoAction()">Redo</a>
+      </li>
       <li class="nav-item">
         <a id="save-button" class="nav-link" href="#" onclick="saveCanvas()">Save</a>
       </li>
       <li class="nav-item">
-        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Coming soon">
-          <a id="load-button" class="nav-link disabled" href="#" onclick="newCanvas()">Load</a>
-        </span>
+          <a id="load-button" class="nav-link" href="#" onclick="loadCanvas()">Load</a>
       </li>
       <li class="nav-item">
         <a id="new-button" class="nav-link" href="#" onclick="newCanvas()">New</a>
@@ -89,6 +77,9 @@
     </ul>
   </nav>
   <canvas id="myCanvas" resize></canvas>
+
+  <input id="file-input" type="file" style="display:none;" accept=".svg"></input>
+  <a id="source-text" href="https://github.com/Achiria/drawapp" target="_blank" rel="noopener noreferrer">Source</a>
 
 
   <script type="text/javascript" src="static/js/jquery-3.4.1.min.js"></script>

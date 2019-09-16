@@ -1,5 +1,7 @@
-html, body {
+html,
+body {
     height: 100%;
+    /* font-family: theDood; */
 }
 
 canvas[resize] {
@@ -32,10 +34,28 @@ canvas[resize] {
     /* border-style: solid; */
 }
 
+#source-text {
+    position: absolute;
+    bottom: 3px;
+    right: 8px;
+    color: #888888
+}
+
 .grabby {
-    cursor: grab;   
+    cursor: grab;
 }
 
 .grabby:active {
     cursor: grabbing;
 }
+
+/* @font-face {
+    font-family: 'theDood';
+    src: url('../static/fonts/theDood-Regular.eot');
+    src: url('../static/fonts/theDood-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../static/fonts/theDood-Regular.woff') format('woff'),
+        url('../static/fonts/theDood-Regular.woff2') format('woff2'),
+        url('../static/fonts/theDood-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+} */

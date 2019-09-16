@@ -1,9 +1,13 @@
+// import * as historyEvent from './historyEvent.js';
+
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip();
 	$('[data-toggle="popover"]').popover();
 })
 
 window.globals = {
+	previousHistory: [],
+	futureHistory: [],
 	strokeColor: "black",
 	fillColor: "white",
 	strokeWidth: 3,
@@ -86,10 +90,31 @@ function saveCanvas() {
 	});
 }
 
+function loadCanvas() {
+	var project = window.globals.project;
+    $('#file-input').trigger('click');
+
+}
+
 function newCanvas() {
 	window.globals.project.clear();
 }
 
+function undoAction() {
+	var project = window.globals.project;
+	var lastProject = window.globals.previousHistory.pop();
+	window.globals.futureHistory.push(lastProject);
+	project.clear();
+	project.importSVG(lastProject);
+}
+
+function redoAction() {
+	var project = window.globals.project;
+	var nextProject = window.globals.futureHistory.pop();
+	window.globals.previousHistory.push(nextProject);
+	project.clear();
+	project.importSVG(nextProject);
+}
 
 
 function downloadDataUri(options) {
@@ -100,7 +125,6 @@ function downloadDataUri(options) {
 		+ options.filename + '"/><input type="hidden" name="data" value="'
 		+ options.data + '"/></form>').appendTo('body').submit().remove();
 }
-
 
 dragElement(document.getElementById("toolbar"));
 

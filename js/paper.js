@@ -9,7 +9,7 @@ var hitOptions = {
 
 globals.project = project;
 
-var segment, path;
+var segment, path, copied;
 
 function onMouseDown(event) {
 	project.deselectAll();
@@ -48,7 +48,7 @@ function leftClickDown(hitResult, event) {
 			case 'stroke':
 				if (globals.function == "select") {
 					var location = hitResult.location;
-					segment = path.insert(location.index + 1, event.point);
+					// segment = path.insert(location.index + 1, event.point);
 				}
 				break;
 			default:
@@ -76,6 +76,8 @@ function leftClickDown(hitResult, event) {
 			brushPath.add(event.point);
 			break;
 		case "circle":
+			break;
+		case "rectangle":
 			break;
 		default:
 			break;
@@ -233,6 +235,7 @@ function leftClickUp(event) {
 		default:
 			break;
 	}
+	window.globals.previousHistory.push(project.exportSVG());
 }
 
 function onKeyUp(event) {
@@ -243,6 +246,21 @@ function onKeyUp(event) {
 				selectedItems[i].remove();
 			}
 			break;
+		case "c": {
+			if (event.modifiers.control) {
+				copied = project.selectedItems;
+			}
+			break;
+		}
+		case "v": {
+			if (event.modifiers.control) {
+				for (var i = 0; i < copied.length; i++) {
+					copied[i].copyTo(project).transform;
+				}
+				project.deselectAll();
+			}
+			break;
+		}
 		default:
 			break;
 	}
