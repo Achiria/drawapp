@@ -11,7 +11,8 @@ window.globals = {
 	strokeColor: "black",
 	fillColor: "white",
 	strokeWidth: 3,
-	function: "circle"
+	function: "circle",
+	fullScreen: false
 };
 
 window.onload = function () {
@@ -115,6 +116,32 @@ function redoAction() {
 	project.clear();
 	project.importSVG(nextProject);
 }
+
+function toggleFullScreen() {
+	var element = document.documentElement;
+	if (globals.fullScreen == false) {
+		if (element.requestFullscreen)
+			element.requestFullscreen();
+		else if (element.mozRequestFullScreen)
+			element.mozRequestFullScreen();
+		else if (element.webkitRequestFullscreen)
+			element.webkitRequestFullscreen();
+		else if (element.msRequestFullscreen)
+			element.msRequestFullscreen();
+		globals.fullScreen = true;
+	} else {
+		if (document.exitFullscreen) 
+			document.exitFullscreen();
+		 else if (document.mozCancelFullScreen)  /* Firefox */
+			document.mozCancelFullScreen();
+		 else if (document.webkitExitFullscreen)  /* Chrome, Safari and Opera */
+			document.webkitExitFullscreen();
+		 else if (document.msExitFullscreen)  /* IE/Edge */
+			document.msExitFullscreen();
+		globals.fullScreen = false;
+	}
+}
+
 
 
 function downloadDataUri(options) {
