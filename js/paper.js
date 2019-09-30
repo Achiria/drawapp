@@ -243,6 +243,7 @@ function leftClickUp(event) {
 		default:
 			break;
 	}
+	// debugger;
 	window.globals.previousHistory.push(project.exportSVG());
 }
 

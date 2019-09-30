@@ -22,6 +22,8 @@ window.onload = function () {
 	strokeColorSelector.addEventListener("change", colorSelected, false);
 	fillColorSelector.addEventListener("change", colorSelected, false);
 	strokeWidthSelector.addEventListener("change", widthSelected, false);
+
+	window.globals.previousHistory.push(window.globals.project.exportSVG());
 }
 
 function colorSelected(event) {
@@ -93,7 +95,7 @@ function saveCanvas() {
 
 function loadCanvas() {
 	var project = window.globals.project;
-    $('#file-input').trigger('click');
+	$('#file-input').trigger('click');
 
 }
 
@@ -102,19 +104,27 @@ function newCanvas() {
 }
 
 function undoAction() {
+	// debugger;
 	var project = window.globals.project;
-	var lastProject = window.globals.previousHistory.pop();
-	window.globals.futureHistory.push(lastProject);
-	project.clear();
-	project.importSVG(lastProject);
+	if (window.globals.previousHistory.length > 0) {
+		window.globals.futureHistory.push(window.globals.previousHistory.pop());
+		var lastProject = window.globals.previousHistory.pop();
+		window.globals.futureHistory.push(lastProject);
+		project.clear();
+		project.importSVG(lastProject);
+	}
 }
 
 function redoAction() {
+	// debugger;
 	var project = window.globals.project;
-	var nextProject = window.globals.futureHistory.pop();
-	window.globals.previousHistory.push(nextProject);
-	project.clear();
-	project.importSVG(nextProject);
+	if (window.globals.futureHistory.length > 0) {
+		window.globals.previousHistory.push(window.globals.futureHistory.pop());
+		var nextProject = window.globals.futureHistory.pop();
+		window.globals.previousHistory.push(nextProject);
+		project.clear();
+		project.importSVG(nextProject);
+	}
 }
 
 function toggleFullScreen() {
@@ -130,13 +140,13 @@ function toggleFullScreen() {
 			element.msRequestFullscreen();
 		globals.fullScreen = true;
 	} else {
-		if (document.exitFullscreen) 
+		if (document.exitFullscreen)
 			document.exitFullscreen();
-		 else if (document.mozCancelFullScreen)  /* Firefox */
+		else if (document.mozCancelFullScreen)  /* Firefox */
 			document.mozCancelFullScreen();
-		 else if (document.webkitExitFullscreen)  /* Chrome, Safari and Opera */
+		else if (document.webkitExitFullscreen)  /* Chrome, Safari and Opera */
 			document.webkitExitFullscreen();
-		 else if (document.msExitFullscreen)  /* IE/Edge */
+		else if (document.msExitFullscreen)  /* IE/Edge */
 			document.msExitFullscreen();
 		globals.fullScreen = false;
 	}
