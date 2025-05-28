@@ -107,23 +107,22 @@ function undoAction() {
 	// debugger;
 	var project = window.globals.project;
 	if (window.globals.previousHistory.length > 0) {
-		window.globals.futureHistory.push(window.globals.previousHistory.pop());
-		var lastProject = window.globals.previousHistory.pop();
-		window.globals.futureHistory.push(lastProject);
+		var redoProject = window.globals.previousHistory.pop();
+		var nowProject = peek(window.globals.previousHistory);
+		window.globals.futureHistory.push(redoProject);
 		project.clear();
-		project.importSVG(lastProject);
+		project.importSVG(nowProject);
 	}
 }
 
 function redoAction() {
 	// debugger;
 	var project = window.globals.project;
-	if (window.globals.futureHistory.length > 0) {
-		window.globals.previousHistory.push(window.globals.futureHistory.pop());
-		var nextProject = window.globals.futureHistory.pop();
-		window.globals.previousHistory.push(nextProject);
+	if (window.globals.futureHistory.length > 0) {		
+		var nowProject = window.globals.futureHistory.pop();
+		window.globals.previousHistory.push(nowProject);
 		project.clear();
-		project.importSVG(nextProject);
+		project.importSVG(nowProject);
 	}
 }
 
@@ -206,3 +205,7 @@ function dragElement(elmnt) {
 		document.onmousemove = null;
 	}
 }
+
+function peek(asdf) {
+    return asdf[asdf.length - 1];
+  }

@@ -181,6 +181,7 @@ function onMouseUp(event) {
 }
 
 function leftClickUp(event) {
+	window.globals.futureHistory = [];
 	switch (globals.function) {
 		case "line":
 			var linePath = new Path();
