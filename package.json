@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Achiria/drawapp#readme",
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "bootstrap-icons": "^1.13.1",
     "jquery": "^3.4.1",
     "npm": "^6.11.2",
     "paper": "^0.12.3",

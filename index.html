@@ -13,10 +13,10 @@
 <body>
   <div id="toolbar">
     <div id="toolbarheader">Toobar</div>
-    <input id="stroke-color-selector" type="color" class="color-selector" value="#000000">
-    <input id="fill-color-selector" type="color" class="color-selector" value="#ffffff">
-    <input id="opacity-selector" type="range" class="form-control-range" style="width: 83px" value="10" max="10">
-    <input id="stroke-width-selector" type="range" class="form-control-range" style="width: 83px" value="3" max="15">
+    <input id="stroke-color-selector" type="color" class="color-selector" value="#000000" data-toggle="tooltip" title="Stroke Color">
+    <input id="fill-color-selector" type="color" class="color-selector" value="#ffffff" data-toggle="tooltip" title="Fill Color">
+    <input id="opacity-selector" type="range" class="form-control-range" style="width: 83px" value="10" min="0.1" max="10.1" data-toggle="tooltip" title="Opacity">
+    <input id="stroke-width-selector" type="range" class="form-control-range" style="width: 83px" value="3" max="15" data-toggle="tooltip" title="Stroke Width">
   </div>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">

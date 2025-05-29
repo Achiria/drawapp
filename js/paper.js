@@ -206,10 +206,10 @@ function leftClickUp(event) {
 			}
 			break;
 		case "brush":
+			brushPath.simplify(1);
 			brushPath.add(event.point);
 			brushPath.closed = true;
-			// brushPath.simplify(10);
-			brushPath.smooth();
+			// brushPath.smooth(5);
 			break;
 		case "circle":
 			var circle = new Path.Circle({
