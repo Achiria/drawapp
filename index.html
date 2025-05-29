@@ -15,6 +15,7 @@
     <div id="toolbarheader">Toobar</div>
     <input id="stroke-color-selector" type="color" class="color-selector" value="#000000">
     <input id="fill-color-selector" type="color" class="color-selector" value="#ffffff">
+    <input id="opacity-selector" type="range" class="form-control-range" style="width: 83px" value="10" max="10">
     <input id="stroke-width-selector" type="range" class="form-control-range" style="width: 83px" value="3" max="15">
   </div>
 
@@ -36,7 +37,7 @@
       <a id="brush-select-button" class="function-button nav-link" href="#" onclick="changeFunction('brush')">Brush</a>
       <li class="nav-item dropdown">
         <a id="shape-select-button" class="nav-link dropdown-toggle function-button active" data-toggle="dropdown"
-          href="#" role="button" aria-haspopup="true" aria-expanded="false">Shape</a>
+          href="#" role="button" aria-haspopup="true" aria-expanded="false">Circle</a>
         <div class="dropdown-menu">
           <a id="line-select-button" class="function-button dropdown-item" href="#"
             onclick="changeFunction('line')">Line</a>
@@ -60,10 +61,10 @@
     </ul>
     <ul class="nav justify-content-end">
       <li class="nav-item">
-          <a id="undo-button" class="nav-link" href="#" onclick="undoAction()">Undo</a>
+          <a id="undo-button" class="nav-link disabled" href="#" onclick="undoAction()">Undo</a>
       </li>
       <li class="nav-item">
-          <a id="redo-button" class="nav-link" href="#" onclick="redoAction()">Redo</a>
+          <a id="redo-button" class="nav-link disabled" href="#" onclick="redoAction()">Redo</a>
       </li>
       <li class="nav-item">
         <a id="save-button" class="nav-link" href="#" onclick="saveCanvas()">Save</a>

@@ -73,6 +73,9 @@ function leftClickDown(hitResult, event) {
 		case "brush":
 			brushPath = new Path();
 			brushPath.fillColor = globals.strokeColor;
+            brushPath.strokeColor = globals.strokeColor;
+            brushPath.strokeWidth = globals.strokeWidth;
+            brushPath.opacity = globals.opacity;
 			brushPath.add(event.point);
 			break;
 		case "circle":
@@ -131,10 +134,10 @@ function leftDrag(event) {
 			var top = event.middlePoint + (step * (globals.strokeWidth / 30) + 1);
 			var bottom = event.middlePoint - (step * (globals.strokeWidth / 30) + 1);
 
-			var line = new Path();
-			line.strokeColor = globals.strokeColor;;
-			line.add(top);
-			line.add(bottom);
+			// var line = new Path();
+			// line.strokeColor = globals.strokeColor;;
+			// line.add(top);
+			// line.add(bottom);
 
 			brushPath.add(top);
 			brushPath.insert(0, bottom);
@@ -181,12 +184,12 @@ function onMouseUp(event) {
 }
 
 function leftClickUp(event) {
-	window.globals.futureHistory = [];
 	switch (globals.function) {
 		case "line":
 			var linePath = new Path();
 			linePath.strokeColor = globals.strokeColor;
 			linePath.strokeWidth = globals.strokeWidth;
+            linePath.opacity = globals.opacity;
 			linePath.add(event.downPoint);
 			linePath.add(event.point);
 			break;
@@ -199,6 +202,7 @@ function leftClickUp(event) {
 				});
 				circle.strokeColor = globals.strokeColor;
 				circle.fillColor = globals.strokeColor;
+                circle.opacity = globals.opacity;
 			}
 			break;
 		case "brush":
@@ -215,6 +219,7 @@ function leftClickUp(event) {
 			circle.strokeColor = globals.strokeColor;
 			circle.fillColor = globals.fillColor;
 			circle.strokeWidth = globals.strokeWidth;
+            circle.opacity = globals.opacity;
 			break;
 		case "ellipse":
 			var rectangle = new Rectangle({
@@ -229,6 +234,7 @@ function leftClickUp(event) {
 			ellipse.strokeColor = globals.strokeColor;
 			ellipse.fillColor = globals.fillColor;
 			ellipse.strokeWidth = globals.strokeWidth;
+            ellipse.opacity = globals.opacity;
 			break;
 		case "rectangle":
 			var rectangle = new Path.Rectangle({
@@ -240,12 +246,16 @@ function leftClickUp(event) {
 			rectangle.strokeColor = globals.strokeColor;
 			rectangle.fillColor = globals.fillColor;
 			rectangle.strokeWidth = globals.strokeWidth;
+            rectangle.opacity = globals.opacity;
 			break;
 		default:
 			break;
 	}
 	// debugger;
+	window.globals.futureHistory = [];
 	window.globals.previousHistory.push(project.exportSVG());
+    $("#undo-button").removeClass("disabled");
+    $("#redo-button").addClass("disabled");
 }
 
 function onKeyUp(event) {

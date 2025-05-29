@@ -10,6 +10,7 @@ window.globals = {
 	futureHistory: [],
 	strokeColor: "black",
 	fillColor: "white",
+    opacity: 1,
 	strokeWidth: 3,
 	function: "circle",
 	fullScreen: false
@@ -18,9 +19,11 @@ window.globals = {
 window.onload = function () {
 	var strokeColorSelector = document.querySelector("#stroke-color-selector");
 	var fillColorSelector = document.querySelector("#fill-color-selector");
+	var opacitySelector = document.querySelector("#opacity-selector");
 	var strokeWidthSelector = document.querySelector("#stroke-width-selector");
 	strokeColorSelector.addEventListener("change", colorSelected, false);
 	fillColorSelector.addEventListener("change", colorSelected, false);
+	opacitySelector.addEventListener("change", opacitySelected, false);
 	strokeWidthSelector.addEventListener("change", widthSelected, false);
 
 	window.globals.previousHistory.push(window.globals.project.exportSVG());
@@ -41,6 +44,10 @@ function colorSelected(event) {
 
 function widthSelected(event) {
 	window.globals['strokeWidth'] = document.querySelector("#stroke-width-selector").value;
+}
+
+function opacitySelected(event) {
+	window.globals['opacity'] = (document.querySelector("#opacity-selector").value) / 10;
 }
 
 function changeFunction(newFunction) {
@@ -64,18 +71,22 @@ function changeFunction(newFunction) {
 		case "line":
 			$("#line-select-button").addClass("active");
 			$("#shape-select-button").addClass("active");
+            $("#shape-select-button").text("Line");
 			break;
 		case "circle":
 			$("#circle-select-button").addClass("active");
 			$("#shape-select-button").addClass("active");
+            $("#shape-select-button").text("Circle");
 			break;
 		case "ellipse":
 			$("#ellipse-select-button").addClass("active");
 			$("#shape-select-button").addClass("active");
+            $("#shape-select-button").text("Ellipse");
 			break;
 		case "rectangle":
 			$("#rectangle-select-button").addClass("active");
 			$("#shape-select-button").addClass("active");
+            $("#shape-select-button").text("Rectangle");
 			break;
 		case "text":
 			$("#text-select-button").addClass("active");
@@ -112,7 +123,11 @@ function undoAction() {
 		window.globals.futureHistory.push(redoProject);
 		project.clear();
 		project.importSVG(nowProject);
+        $("#redo-button").removeClass("disabled");
 	}
+	if (window.globals.previousHistory.length <= 1) {
+        $("#undo-button").addClass("disabled");
+    }
 }
 
 function redoAction() {
@@ -123,7 +138,13 @@ function redoAction() {
 		window.globals.previousHistory.push(nowProject);
 		project.clear();
 		project.importSVG(nowProject);
+        $("#undo-button").removeClass("disabled");
 	}
+    else{
+        $("#undo-button").addClass("disabled");
+    }if (window.globals.futureHistory.length <= 0) {
+        $("#redo-button").addClass("disabled");
+    }
 }
 
 function toggleFullScreen() {
@@ -206,6 +227,6 @@ function dragElement(elmnt) {
 	}
 }
 
-function peek(asdf) {
-    return asdf[asdf.length - 1];
+function peek(list) {
+    return list[list.length - 1];
   }
