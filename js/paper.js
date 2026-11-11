@@ -253,7 +253,7 @@ function leftClickUp(event) {
 			updateHistory = false;
 			break;
 	}
-	if updateHistory {
+	if (updateHistory) {
 		// debugger;
 		window.globals.futureHistory = [];
 		window.globals.previousHistory.push(project.exportSVG());
