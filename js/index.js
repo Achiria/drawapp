@@ -1,9 +1,12 @@
 // import * as historyEvent from './historyEvent.js';
 
-$(function () {
-	$('[data-toggle="tooltip"]').tooltip();
-	$('[data-toggle="popover"]').popover();
-})
+document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((element) => {
+	new bootstrap.Tooltip(element);
+});
+
+document.querySelectorAll('[data-bs-toggle="popover"]').forEach((element) => {
+	new bootstrap.Popover(element);
+});
 
 window.globals = {
 	previousHistory: [],
