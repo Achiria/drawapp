@@ -184,6 +184,7 @@ function onMouseUp(event) {
 }
 
 function leftClickUp(event) {
+	updateHistory = true;
 	switch (globals.function) {
 		case "line":
 			var linePath = new Path();
@@ -249,13 +250,16 @@ function leftClickUp(event) {
             rectangle.opacity = globals.opacity;
 			break;
 		default:
+			updateHistory = false;
 			break;
 	}
-	// debugger;
-	window.globals.futureHistory = [];
-	window.globals.previousHistory.push(project.exportSVG());
-    $("#undo-button").removeClass("disabled");
-    $("#redo-button").addClass("disabled");
+	if updateHistory {
+		// debugger;
+		window.globals.futureHistory = [];
+		window.globals.previousHistory.push(project.exportSVG());
+		$("#undo-button").removeClass("disabled");
+		$("#redo-button").addClass("disabled");
+	}
 }
 
 function onKeyUp(event) {
