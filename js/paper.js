@@ -2,6 +2,7 @@ var values = {};
 
 var hitOptions = {
 	segments: true,
+	handles: true,
 	stroke: true,
 	fill: true,
 	tolerance: 2
@@ -14,6 +15,7 @@ var segment, path, copied;
 function onMouseDown(event) {
 	project.deselectAll();
 	segment = path = null;
+	handle = point = null;
 	var hitResult = project.hitTest(event.point, hitOptions);
 
 	//if it's a mouse event
@@ -45,6 +47,12 @@ function leftClickDown(hitResult, event) {
 			case 'segment':
 				segment = hitResult.segment;
 				break;
+			case 'handle-in':
+				handle = hitResult.segment.handleIn;
+				break;
+			case 'handle-out':
+				handle = hitResult.segment.handleOut;
+				break;
 			case 'stroke':
 				if (globals.function == "select") {
 					var location = hitResult.location;
@@ -66,6 +74,8 @@ function leftClickDown(hitResult, event) {
 				});
 			if (segment != null)
 				segment.set({selected: true});
+			if (handle != null)
+				handle.set({selected: true});
 			break;
 		case "pen":
 			penPath = new Path();
@@ -124,6 +134,9 @@ function leftDrag(event) {
 		case "select":
 			if (segment) {
 				segment.point += event.delta;
+			} else if (handle) {
+				// handle.point = event.point.subtract(handle.point);
+				handle.point += event.delta;
 			} else if (path) {
 				path.position += event.delta;
 			}
