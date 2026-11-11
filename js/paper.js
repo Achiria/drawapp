@@ -93,6 +93,15 @@ function leftClickDown(hitResult, event) {
 			brushPath.add(event.point);
 			break;
 		case "circle":
+			centerEvent = event.point;
+			newCircle = new Path.Circle({
+				center: event.point,
+				radius: 0
+			});
+			newCircle.strokeColor = globals.strokeColor;
+			newCircle.fillColor = globals.fillColor;
+			newCircle.strokeWidth = globals.strokeWidth;
+            newCircle.opacity = globals.opacity;
 			break;
 		case "rectangle":
 			break;
@@ -161,6 +170,20 @@ function leftDrag(event) {
 			brushPath.smooth();
 			break;
 		case "circle":
+			// newCircle.set({radius: event.delta.length / 2});
+			newCircle.remove();
+			newCenter = centerEvent + (centerEvent.getDistance(event.point) / 3);
+			// newCenter = centerEvent.getDistance(event.middlePoint);
+			// newRadius = centerEvent - event.point;
+			newRadius = centerEvent.getDistance(event.point) / 2;
+			newCircle = new Path.Circle({
+				center: newCenter,
+				radius: newRadius
+			});
+			newCircle.strokeColor = globals.strokeColor;
+			newCircle.fillColor = globals.fillColor;
+			newCircle.strokeWidth = globals.strokeWidth;
+            newCircle.opacity = globals.opacity;
 			break;
 		default:
 			break;
