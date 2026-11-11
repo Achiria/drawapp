@@ -51,6 +51,8 @@ function leftClickDown(hitResult, event) {
 					// segment = path.insert(location.index + 1, event.point);
 				}
 				break;
+			case 'fill':
+				break;
 			default:
 				break;
 		}
@@ -62,6 +64,8 @@ function leftClickDown(hitResult, event) {
 				event.item.set({
 					selected: true
 				});
+			if (segment != null)
+				segment.set({selected: true});
 			break;
 		case "pen":
 			penPath = new Path();
@@ -305,5 +309,7 @@ function changeZoom(oldZoom, delta) {
 }
 
 function moveCenter(event) {
-	project.view.translate(event.delta);
+	requestAnimationFrame(function() {
+		project.view.translate(event.delta);
+	});
 }
