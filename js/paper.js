@@ -10,12 +10,12 @@ var hitOptions = {
 
 globals.project = project;
 
-var segment, path, copied;
+var segment, path, copied, handle;
 
 function onMouseDown(event) {
 	project.deselectAll();
 	segment = path = null;
-	handle = point = null;
+	handle = null;
 	var hitResult = project.hitTest(event.point, hitOptions);
 
 	//if it's a mouse event
@@ -48,10 +48,12 @@ function leftClickDown(hitResult, event) {
 				segment = hitResult.segment;
 				break;
 			case 'handle-in':
-				handle = hitResult.segment.handleIn;
+				segment = hitResult.segment;
+				handle = "handleIn";
 				break;
 			case 'handle-out':
-				handle = hitResult.segment.handleOut;
+				segment = hitResult.segment;
+				handle = "handleOut";
 				break;
 			case 'stroke':
 				if (globals.function == "select") {
@@ -74,8 +76,6 @@ function leftClickDown(hitResult, event) {
 				});
 			if (segment != null)
 				segment.set({selected: true});
-			if (handle != null)
-				handle.set({selected: true});
 			break;
 		case "pen":
 			penPath = new Path();
@@ -132,11 +132,10 @@ function leftDrag(event) {
 			moveCenter(event);
 			break;
 		case "select":
-			if (segment) {
+			if (handle) {
+				segment[handle] = segment[handle].add(event.delta);
+			} else if (segment) {
 				segment.point += event.delta;
-			} else if (handle) {
-				// handle.point = event.point.subtract(handle.point);
-				handle.point += event.delta;
 			} else if (path) {
 				path.position += event.delta;
 			}
@@ -265,6 +264,8 @@ function leftClickUp(event) {
 			rectangle.fillColor = globals.fillColor;
 			rectangle.strokeWidth = globals.strokeWidth;
             rectangle.opacity = globals.opacity;
+			break;
+		case "select":
 			break;
 		default:
 			updateHistory = false;
