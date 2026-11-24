@@ -101,10 +101,17 @@ function changeFunction(newFunction) {
 
 function saveCanvas() {
 	var svg = window.globals.project.exportSVG({ asString: true });
-	downloadDataUri({
-		data: 'data:image/svg+xml;base64,' + btoa(svg),
-		filename: 'export.svg'
-	});
+	var blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+	var url = URL.createObjectURL(blob);
+	var link = document.createElement("a");
+	link.href = url;
+	link.download = "export.svg";
+	document.body.appendChild(link);
+	link.click();
+	link.remove();
+	setTimeout(function () {
+		URL.revokeObjectURL(url);
+	}, 0);
 }
 
 function loadCanvas() {
@@ -185,15 +192,6 @@ document.addEventListener("fullscreenchange", (event) => {
 });
 
 
-
-function downloadDataUri(options) {
-	if (!options.url)
-		options.url = "http://download-data-uri.appspot.com/";
-	$('<form method="post" action="' + options.url
-		+ '" style="display:none"><input type="hidden" name="filename" value="'
-		+ options.filename + '"/><input type="hidden" name="data" value="'
-		+ options.data + '"/></form>').appendTo('body').submit().remove();
-}
 
 dragElement(document.getElementById("toolbar"));
 
