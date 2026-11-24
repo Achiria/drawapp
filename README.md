@@ -16,13 +16,13 @@ Some keyboard and mouse shortcuts are supported.
 
 ## Keyboard
 
-Delete: delete selected object
+- Delete: delete selected object
 
 ## Mouse
 
-Mouse button 3 (hold): Pan
-Mouse button 4: Undo
-Mouse button 5: Redo
+- Mouse button 3 (hold): Pan
+- Mouse button 4: Undo
+- Mouse button 5: Redo
 
 ***
 
