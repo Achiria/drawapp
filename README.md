@@ -26,6 +26,6 @@ Some keyboard and mouse shortcuts are supported.
 
 ***
 
-A work in progress.
+A work in progress.<br>
 Relies heavily on the [Paper.js library](https://paperjs.org/)
 
