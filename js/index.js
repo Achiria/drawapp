@@ -198,44 +198,45 @@ function downloadDataUri(options) {
 dragElement(document.getElementById("toolbar"));
 
 function dragElement(elmnt) {
-	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-	if (document.getElementById(elmnt.id + "header")) {
-		// if present, the header is where you move the DIV from:
-		document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-	} else {
-		// otherwise, move the DIV from anywhere inside the DIV: 
-		elmnt.onmousedown = dragMouseDown;
+	var dragHandle = document.getElementById(elmnt.id + "header") || elmnt;
+	var activePointerId = null;
+	var previousX, previousY;
+
+	dragHandle.style.touchAction = "none";
+	dragHandle.addEventListener("pointerdown", startDragging);
+
+	function startDragging(event) {
+		if (!event.isPrimary || event.button !== 0)
+			return;
+
+		event.preventDefault();
+		activePointerId = event.pointerId;
+		previousX = event.clientX;
+		previousY = event.clientY;
+		document.addEventListener("pointermove", drag);
+		document.addEventListener("pointerup", stopDragging);
+		document.addEventListener("pointercancel", stopDragging);
 	}
 
-	function dragMouseDown(e) {
-		e = e || window.event;
-		e.preventDefault();
-		// get the mouse cursor position at startup:
-		pos3 = e.clientX;
-		pos4 = e.clientY;
-		document.onmouseup = closeDragElement;
-		// call a function whenever the cursor moves:
-		document.onmousemove = elementDrag;
+	function drag(event) {
+		if (event.pointerId !== activePointerId)
+			return;
+
+		event.preventDefault();
+		elmnt.style.top = (elmnt.offsetTop + event.clientY - previousY) + "px";
+		elmnt.style.left = (elmnt.offsetLeft + event.clientX - previousX) + "px";
+		previousX = event.clientX;
+		previousY = event.clientY;
 	}
 
-	function elementDrag(e) {
-		e = e || window.event;
-		e.preventDefault();
-		// calculate the new cursor position:
-		pos1 = pos3 - e.clientX;
-		pos2 = pos4 - e.clientY;
-		pos3 = e.clientX;
-		pos4 = e.clientY;
-		// set the element's new position:
-		elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-		elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-		elmnt.style.right = (elmnt.offsetRight - pos1) + "px";
-	}
+	function stopDragging(event) {
+		if (event.pointerId !== activePointerId)
+			return;
 
-	function closeDragElement() {
-		// stop moving when mouse button is released:
-		document.onmouseup = null;
-		document.onmousemove = null;
+		activePointerId = null;
+		document.removeEventListener("pointermove", drag);
+		document.removeEventListener("pointerup", stopDragging);
+		document.removeEventListener("pointercancel", stopDragging);
 	}
 }
 
